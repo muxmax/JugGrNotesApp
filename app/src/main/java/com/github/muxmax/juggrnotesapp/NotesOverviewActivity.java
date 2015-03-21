@@ -4,6 +4,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import com.github.muxmax.juggrnotesapp.util.NavigationUtils;
 
 
 public class NotesOverviewActivity extends ActionBarActivity {
@@ -12,6 +16,17 @@ public class NotesOverviewActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notes_overview_activity);
+
+        // TODO The ID should be retrieved from a click event on a note list, later.
+        final Long noteId = 0l;
+
+        TextView textView = (TextView) findViewById(R.id.textViewHello);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavigationUtils.goToNoteDetailActivity(NotesOverviewActivity.this, noteId);
+            }
+        });
     }
 
 

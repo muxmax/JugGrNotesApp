@@ -9,6 +9,7 @@
                 tools:context=".NotesOverviewActivity">
 
     <TextView
+        android:id="@+id/textViewHello"
         android:text="Note Overview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

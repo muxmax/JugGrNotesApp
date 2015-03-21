@@ -1,17 +1,66 @@
 package com.github.muxmax.juggrnotesapp;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.github.muxmax.juggrnotesapp.util.BundleArguments;
 
+/**
+ * An activity that shows detail information on a given note.
+ */
 public class NoteDetailActivity extends ActionBarActivity {
+
+    // model state
+    private Long noteId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (stateCouldBeLoaded(savedInstanceState)) {
+
+            initializeView();
+
+        } else {
+            handleLoadingError();
+        }
+    }
+
+    /**
+     * Initialize all views of the activity.
+     */
+    private void initializeView() {
         setContentView(R.layout.note_detail_activity);
+    }
+
+    /**
+     * Loads the activity arguments either from the given savedInstancesState or the intent this
+     * activity was created for.
+     *
+     * @param savedInstancesState A {@link android.os.Bundle} that might contain a saved activity
+     *                            state.
+     * @return true, if the activity state could be loaded. false, otherwise.
+     */
+    private boolean stateCouldBeLoaded(Bundle savedInstancesState) {
+        if (savedInstancesState == null) {
+            noteId = getIntent().getLongExtra(BundleArguments.NOTE_ID, 0);
+        } else {
+            noteId = savedInstancesState.getLong(BundleArguments.NOTE_ID);
+        }
+        return noteId != null;
+    }
+
+    /**
+     * Handle the error when the activity state could not be loaded correctly.
+     */
+    private void handleLoadingError() {
+        Log.e(getClass().getName(),
+                "The activity was not provided with the necessary arguments, " +
+                        "or the state could not be restored correctly after pausing.");
+        finish();
     }
 
 
