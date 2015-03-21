@@ -16,6 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".NoteDetailActivity"
+            android:label="@string/title_activity_note_detail"
+            android:parentActivityName=".NotesOverviewActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.github.muxmax.juggrnotesapp.NotesOverviewActivity" />
+        </activity>
     </application>
 
 </manifest>
