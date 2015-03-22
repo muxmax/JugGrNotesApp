@@ -4,4 +4,6 @@
     <string name="action_settings">Einstellungen</string>
     <string name="action_choose_color">Eine Farbe zum markieren wählen.</string>
     <string name="action_take_photo">Ein Foto aufnehmen.</string>
+    <string name="note_title">Title der Notiz</string>
+    <string name="note_content">Hier kannst du den Inhalt deiner Notiz eingeben.</string>
 </resources>

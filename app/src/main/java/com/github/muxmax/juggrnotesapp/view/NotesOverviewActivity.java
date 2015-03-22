@@ -1,4 +1,4 @@
-package com.github.muxmax.juggrnotesapp;
+package com.github.muxmax.juggrnotesapp.view;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.github.muxmax.juggrnotesapp.R;
 import com.github.muxmax.juggrnotesapp.util.NavigationUtils;
 
 

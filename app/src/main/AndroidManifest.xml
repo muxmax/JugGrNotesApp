@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".NotesOverviewActivity"
+            android:name=".view.NotesOverviewActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,12 +17,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NoteDetailActivity"
+            android:name=".view.NoteDetailActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".NotesOverviewActivity" >
+            android:parentActivityName=".view.NotesOverviewActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.github.muxmax.juggrnotesapp.NotesOverviewActivity" />
+                android:value=".view.NotesOverviewActivity" />
         </activity>
     </application>
 

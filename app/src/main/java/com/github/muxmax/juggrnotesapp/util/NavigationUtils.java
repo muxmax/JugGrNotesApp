@@ -3,7 +3,7 @@ package com.github.muxmax.juggrnotesapp.util;
 import android.content.Context;
 import android.content.Intent;
 
-import com.github.muxmax.juggrnotesapp.NoteDetailActivity;
+import com.github.muxmax.juggrnotesapp.view.NoteDetailActivity;
 
 /**
  * A utility class that provides navigation between different app parts. This decouples all views
@@ -12,7 +12,7 @@ import com.github.muxmax.juggrnotesapp.NoteDetailActivity;
 public class NavigationUtils {
 
     /**
-     * Navigate to the {@link com.github.muxmax.juggrnotesapp.NoteDetailActivity}.
+     * Navigate to the {@link com.github.muxmax.juggrnotesapp.view.NoteDetailActivity}.
      * @param context The context the new activity is started from.
      * @param noteId The id of the note to be viewed.
      */
