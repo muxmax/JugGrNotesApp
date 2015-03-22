@@ -2,8 +2,20 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.github.muxmax.juggrnotesapp.NoteDetailActivity">
+
+    <item android:id="@+id/action_choose_color"
+          android:title="@string/action_choose_color"
+          android:icon="@drawable/ic_action_palette"
+          app:showAsAction="always"/>
+
+    <item android:id="@+id/action_take_photo"
+          android:title="@string/action_take_photo"
+          android:icon="@drawable/ic_action_photo_camera"
+          app:showAsAction="always"/>
+
     <item android:id="@+id/action_settings"
           android:title="@string/action_settings"
           android:orderInCategory="100"
           app:showAsAction="never"/>
+
 </menu>

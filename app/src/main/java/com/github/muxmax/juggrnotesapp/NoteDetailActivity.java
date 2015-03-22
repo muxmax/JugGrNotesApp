@@ -2,6 +2,7 @@ package com.github.muxmax.juggrnotesapp;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,6 +35,11 @@ public class NoteDetailActivity extends ActionBarActivity {
      */
     private void initializeView() {
         setContentView(R.layout.note_detail_activity);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     /**
