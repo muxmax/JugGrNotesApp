@@ -2,6 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="vertical"
                 tools:context="com.github.muxmax.juggrnotesapp.view.NoteDetailActivity">
 
     <android.support.v7.widget.Toolbar
@@ -18,12 +19,40 @@
             android:layout_height="wrap_content"
             android:hint="@string/note_title"/>
 
-        </android.support.v7.widget.Toolbar>
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/note_image_height"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            />
+
+        <ImageButton
+            android:visibility="gone"
+            android:id="@+id/buttonDeletePhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_delete"
+            android:background="@android:color/transparent"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_gravity="bottom|right"
+            />
+    </FrameLayout>
 
     <EditText
+        android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
@@ -32,15 +61,5 @@
         android:id="@+id/editTextContent"
         android:hint="@string/note_content"
         />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:cropToPadding="true"
-        android:layout_below="@id/editTextContent"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/imageView"
-        android:layout_gravity="bottom"
-        android:layout_weight="1"/>
 
 </RelativeLayout>
