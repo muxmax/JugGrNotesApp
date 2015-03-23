@@ -1,12 +1,11 @@
 package com.github.muxmax.juggrnotesapp.view;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.github.muxmax.juggrnotesapp.R;
 import com.github.muxmax.juggrnotesapp.util.NavigationUtils;
@@ -19,22 +18,22 @@ public class NotesOverviewActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notes_overview_activity);
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
 
-        // TODO The ID should be retrieved from a click event on a note list, later.
-        final Long noteId = 0l;
+        findViewById(R.id.buttonCreateNewNote).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // TODO The ID should be retrieved from a click event on a note list, later.
+                        final Long noteId = 0l;
+                        NavigationUtils.goToNoteDetailActivity(NotesOverviewActivity.this, noteId);
+                    }
+                }
+        );
 
-        TextView textView = (TextView) findViewById(R.id.textViewHello);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavigationUtils.goToNoteDetailActivity(NotesOverviewActivity.this, noteId);
-            }
-        });
     }
 
 
