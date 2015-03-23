@@ -6,4 +6,5 @@ package com.github.muxmax.juggrnotesapp.util;
  */
 public class BundleArguments {
     public static final String NOTE_ID = "note id";
+    public static final String COLOR = "note color";
 }

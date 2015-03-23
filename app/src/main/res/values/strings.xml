@@ -7,4 +7,7 @@
     <string name="note_title">Title der Notiz</string>
     <string name="note_content">Hier kannst du den Inhalt deiner Notiz eingeben.</string>
     <string name="the_photo_could_not_be_taken">Es konnte kein Foto aufgenommen werden.</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="saved_note">Notiz gespeichert.</string>
+    <string name="did_not_save_note_as_empty">Leere Notiz verworfen.</string>
 </resources>

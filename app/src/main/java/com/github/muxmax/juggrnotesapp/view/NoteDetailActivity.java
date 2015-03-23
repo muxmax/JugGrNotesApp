@@ -1,5 +1,6 @@
 package com.github.muxmax.juggrnotesapp.view;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
@@ -19,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.github.muxmax.juggrnotesapp.R;
+import com.github.muxmax.juggrnotesapp.model.Note;
+import com.github.muxmax.juggrnotesapp.model.NoteStore;
 import com.github.muxmax.juggrnotesapp.util.BundleArguments;
 import com.github.muxmax.juggrnotesapp.util.NavigationUtils;
 import com.squareup.picasso.Callback;
@@ -32,9 +35,10 @@ import java.io.File;
 public class NoteDetailActivity extends ActionBarActivity {
 
     // model state
-    private Long noteId;
+    private Note note;
 
     // view
+    private View rootView;
     private ImageView imageView;
     private ImageButton buttonDeletePhoto;
     private EditText editTextTitle;
@@ -47,18 +51,14 @@ public class NoteDetailActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (stateCouldBeLoaded(savedInstanceState)) {
-            initializeView();
-        } else {
-            handleLoadingError();
-        }
+        loadState(savedInstanceState);
+        initializeView();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == NavigationUtils.RESULT_LOAD_IMAGE && resultCode == RESULT_OK)  {
+        if (requestCode == NavigationUtils.RESULT_LOAD_IMAGE && resultCode == RESULT_OK) {
             if (!NavigationUtils.isFromCamera(data) && data == null) {
                 onErrorTakingAPhoto();
             } else {
@@ -86,11 +86,31 @@ public class NoteDetailActivity extends ActionBarActivity {
             return true;
         } else if (id == R.id.action_take_photo) {
             onActionTakeAPhoto();
+        } else if (id == R.id.action_choose_color) {
+            onActionChooseColor();
+        } else if (id == android.R.id.home) {
+            onSaveNote();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        onSaveNote();
+    }
+
+    private void onSaveNote() {
+        note.setTitle(editTextTitle.getText().toString());
+        note.setContent(editTextContent.getText().toString());
+
+        if (NoteStore.getInstance().save(note)) {
+            Toast.makeText(this, R.string.saved_note, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, R.string.did_not_save_note_as_empty, Toast.LENGTH_LONG).show();
+        }
+    }
 
     /**
      * Initialize all views of the activity.
@@ -98,12 +118,18 @@ public class NoteDetailActivity extends ActionBarActivity {
     private void initializeView() {
         setContentView(R.layout.note_detail_activity);
 
+        rootView = findViewById(R.id.rootView);
+        rootView.setBackgroundColor(note.getColor());
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         imageView = (ImageView) findViewById(R.id.imageView);
+        if (note.getImagePath() != null) {
+            loadImageIntoView(note.getImagePath());
+        }
         buttonDeletePhoto = (ImageButton) findViewById(R.id.buttonDeletePhoto);
         buttonDeletePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,8 +140,10 @@ public class NoteDetailActivity extends ActionBarActivity {
             }
         });
 
-        editTextContent = (EditText) findViewById(R.id.editTextContent);
         editTextTitle = (EditText) findViewById(R.id.editTextTitle);
+        editTextTitle.setText(note.getTitle());
+        editTextContent = (EditText) findViewById(R.id.editTextContent);
+        editTextContent.setText(note.getContent());
     }
 
     /**
@@ -124,25 +152,15 @@ public class NoteDetailActivity extends ActionBarActivity {
      *
      * @param savedInstancesState A {@link android.os.Bundle} that might contain a saved activity
      *                            state.
-     * @return true, if the activity state could be loaded. false, otherwise.
      */
-    private boolean stateCouldBeLoaded(Bundle savedInstancesState) {
+    private void loadState(Bundle savedInstancesState) {
+        Long noteId;
         if (savedInstancesState == null) {
             noteId = getIntent().getLongExtra(BundleArguments.NOTE_ID, 0);
         } else {
             noteId = savedInstancesState.getLong(BundleArguments.NOTE_ID);
         }
-        return noteId != null;
-    }
-
-    /**
-     * Handle the error when the activity state could not be loaded correctly.
-     */
-    private void handleLoadingError() {
-        Log.e(getClass().getName(),
-                "The activity was not provided with the necessary arguments, " +
-                        "or the state could not be restored correctly after pausing.");
-        finish();
+        note = NoteStore.getInstance().provide(noteId);
     }
 
     /**
@@ -153,13 +171,34 @@ public class NoteDetailActivity extends ActionBarActivity {
     }
 
     /**
+     * Should be called to signal that a color needs to be chosen.
+     */
+    private void onActionChooseColor() {
+        DialogFragment colorChooser = ColorChooserDialogFragment
+                .newInstance("red", new ColorChooserDialogFragment.Callback() {
+                    @Override
+                    public void onChosenColor(int color) {
+                        note.setColor(color);
+                        rootView.setBackgroundColor(note.getColor());
+                    }
+                });
+        colorChooser.show(getFragmentManager(), "Color Chooser Dialog");
+    }
+
+    /**
      * Load the photo from the returned intent into the proper image view.
+     *
      * @param data An {@link android.content.Intent} containing data of of the taken photo.
      */
     private void onLoadTakenPhoto(Intent data) {
         String imagePath = NavigationUtils.isFromCamera(data) ?
                 capturedImageUri.getPath() :
                 NavigationUtils.getPath(data.getData(), this);
+        note.setImagePath(imagePath);
+        loadImageIntoView(imagePath);
+    }
+
+    private void loadImageIntoView(String imagePath) {
 
         WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -189,6 +228,6 @@ public class NoteDetailActivity extends ActionBarActivity {
     private void onErrorTakingAPhoto() {
         Log.e(getClass().getName(),
                 "Error: The photo activity could not return an image.");
-        Toast.makeText(this, R.string.the_photo_could_not_be_taken, Toast.LENGTH_LONG);
+        Toast.makeText(this, R.string.the_photo_could_not_be_taken, Toast.LENGTH_LONG).show();
     }
 }
