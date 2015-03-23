@@ -12,7 +12,8 @@ public class NoteStore {
 
     private static NoteStore INSTANCE;
 
-    private Map<Long, Note> notesMap = new HashMap<>();
+    private Map<Long, Note> persistedNotesMap = new HashMap<>();
+    private Map<Long, Note> mergedNotesMap = new HashMap<>();
 
     private NoteStore() {
     }
@@ -25,15 +26,24 @@ public class NoteStore {
     }
 
     /**
-     * Save a {@link com.github.muxmax.juggrnotesapp.model.Note} for the given input arguments.
+     * Save in a transient memory, that is not persistent.
      *
-     * @param note The id of the {@link com.github.muxmax.juggrnotesapp.model.Note}. If it is null
-     *             the store should manage providing a valid id.
-     * @return true, if the note was not empty and therefore could be save. false, otherwise.
+     * @param note A {@link com.github.muxmax.juggrnotesapp.model.Note}.
      */
-    public boolean save(Note note) {
+    public void merge(Note note) {
+        persistedNotesMap.put(note.getId(), note);
+    }
+
+    /**
+     * Save a {@link com.github.muxmax.juggrnotesapp.model.Note} if it is not empty.
+     *
+     * @param note A {@link com.github.muxmax.juggrnotesapp.model.Note}.
+     * @return true, if the note was not empty and therefore could be persisted. false, otherwise.
+     */
+    public boolean persist(Note note) {
         if (notEmpty(note)) {
-            notesMap.put(note.getId(), note);
+            persistedNotesMap.put(note.getId(), note);
+            mergedNotesMap.remove(note.getId());
             return true;
         } else {
             return false;
@@ -57,11 +67,16 @@ public class NoteStore {
         if (noteId == null || noteId == 0) {
 
             Note newNote = new Note();
-            notesMap.put(newNote.getId(), newNote);
-
+            mergedNotesMap.put(newNote.getId(), newNote);
             return newNote;
+
         } else {
-            return notesMap.get(noteId);
+
+            if (mergedNotesMap.containsKey(noteId)) {
+                return mergedNotesMap.get(noteId);
+            } else {
+                return persistedNotesMap.get(noteId);
+            }
         }
     }
 

@@ -101,11 +101,23 @@ public class NoteDetailActivity extends ActionBarActivity {
         onSaveNote();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        note.setTitle(editTextTitle.getText().toString());
+        note.setContent(editTextContent.getText().toString());
+
+        NoteStore.getInstance().merge(note);
+
+        outState.putLong(BundleArguments.NOTE_ID, note.getId());
+    }
+
     private void onSaveNote() {
         note.setTitle(editTextTitle.getText().toString());
         note.setContent(editTextContent.getText().toString());
 
-        if (NoteStore.getInstance().save(note)) {
+        if (NoteStore.getInstance().persist(note)) {
             Toast.makeText(this, R.string.saved_note, Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, R.string.did_not_save_note_as_empty, Toast.LENGTH_LONG).show();
@@ -126,10 +138,6 @@ public class NoteDetailActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        imageView = (ImageView) findViewById(R.id.imageView);
-        if (note.getImagePath() != null) {
-            loadImageIntoView(note.getImagePath());
-        }
         buttonDeletePhoto = (ImageButton) findViewById(R.id.buttonDeletePhoto);
         buttonDeletePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +152,11 @@ public class NoteDetailActivity extends ActionBarActivity {
         editTextTitle.setText(note.getTitle());
         editTextContent = (EditText) findViewById(R.id.editTextContent);
         editTextContent.setText(note.getContent());
+
+        imageView = (ImageView) findViewById(R.id.imageView);
+        if (note.getImagePath() != null) {
+            loadImageIntoView(note.getImagePath());
+        }
     }
 
     /**
