@@ -49,16 +49,11 @@ public class ColorChooserDialogFragment extends DialogFragment implements View.O
 
         View root = inflater.inflate(R.layout.color_chooser_fragment, container, false);
 
-        root.findViewById(R.id.buttonCancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onCancel();
-            }
-        });
         root.findViewById(R.id.colorViewBlue).setOnClickListener(this);
         root.findViewById(R.id.colorViewGreen).setOnClickListener(this);
         root.findViewById(R.id.colorViewOrange).setOnClickListener(this);
         root.findViewById(R.id.colorViewRed).setOnClickListener(this);
+        root.findViewById(R.id.colorViewWhite).setOnClickListener(this);
 
         return root;
     }
@@ -69,10 +64,6 @@ public class ColorChooserDialogFragment extends DialogFragment implements View.O
         int color = drawable.getColor();
         callback.onChosenColor(color);
         dialog.dismiss();
-    }
-
-    public void onCancel() {
-        dialog.cancel();
     }
 
     /**

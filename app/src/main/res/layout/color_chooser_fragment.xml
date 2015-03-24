@@ -51,15 +51,14 @@
             android:layout_margin="@dimen/activity_vertical_margin"
             />
 
+        <View
+            android:id="@+id/colorViewWhite"
+            android:layout_width="@dimen/color_chooser_element"
+            android:layout_height="@dimen/color_chooser_element"
+            android:background="@android:color/white"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            />
+
     </LinearLayout>
-
-
-    <Button
-        android:id="@+id/buttonCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/cancel"/>
 
 </LinearLayout>
