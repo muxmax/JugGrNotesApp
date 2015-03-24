@@ -7,11 +7,14 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="@dimen/note_preview_padding"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/textViewPreviewText"/>

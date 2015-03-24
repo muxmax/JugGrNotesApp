@@ -5,4 +5,5 @@
     <dimen name="note_image_height">300dp</dimen>
     <dimen name="color_chooser_element">30dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="note_preview_padding">8dp</dimen>
 </resources>

@@ -96,10 +96,10 @@ public class NoteListAdapter extends BaseAdapter {
     }
 
     private int max(String content) {
-        if (content.length() < 100) {
+        if (content.length() < 160) {
             return content.length() - 1;
         } else {
-            return 99;
+            return 159;
         }
     }
 
