@@ -12,7 +12,7 @@ public class Note {
     private String title;
     private String content;
     private String imagePath;
-    private int color;
+    private Integer color;
 
     public Note() {
         this.id = UUID.randomUUID().getMostSignificantBits();
@@ -62,7 +62,7 @@ public class Note {
      *
      * @return Value for property 'color'.
      */
-    public int getColor() {
+    public Integer getColor() {
         return color;
     }
 
@@ -98,7 +98,8 @@ public class Note {
      *
      * @param color Value to set for property 'color'.
      */
-    public void setColor(int color) {
+    public void setColor(Integer color) {
         this.color = color;
     }
+
 }

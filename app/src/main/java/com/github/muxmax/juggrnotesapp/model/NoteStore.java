@@ -1,6 +1,8 @@
 package com.github.muxmax.juggrnotesapp.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,6 +18,10 @@ public class NoteStore {
     private Map<Long, Note> mergedNotesMap = new HashMap<>();
 
     private NoteStore() {
+
+        for (Note note : SampleNotes.generate(20)) {
+            persistedNotesMap.put(note.getId(), note);
+        }
     }
 
     public static NoteStore getInstance() {
@@ -80,4 +86,10 @@ public class NoteStore {
         }
     }
 
+    /**
+     * @return A list of all persisted {@link com.github.muxmax.juggrnotesapp.model.Note}s.
+     */
+    public List<Note> findAll() {
+        return new ArrayList<>(persistedNotesMap.values());
+    }
 }
