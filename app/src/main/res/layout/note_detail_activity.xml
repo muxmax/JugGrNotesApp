@@ -29,12 +29,9 @@
         android:layout_height="wrap_content">
 
         <ImageView
-
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/note_image_height"
-            android:scaleType="fitXY"
-            android:adjustViewBounds="true"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             />
 

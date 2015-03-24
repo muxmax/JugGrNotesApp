@@ -1,12 +1,9 @@
 package com.github.muxmax.juggrnotesapp.view;
 
 import android.content.Context;
-import android.graphics.Point;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,21 +22,10 @@ public class NoteListAdapter extends BaseAdapter {
 
     private final Context context;
     private final List<Note> notes;
-    private final Point displaySize;
 
     public NoteListAdapter(Context context, List<Note> notes) {
         this.context = context;
         this.notes = notes;
-
-        displaySize = getDisplaySize();
-    }
-
-    private Point getDisplaySize() {
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point p = new Point(0, 0);
-        display.getSize(p);
-        return p;
     }
 
     @Override
@@ -73,10 +59,23 @@ public class NoteListAdapter extends BaseAdapter {
         Note note = notes.get(position);
 
         if (note.getImagePath() != null) {
+
+            if (note.getTitle().trim().isEmpty() && note.getContent().trim().isEmpty()) {
+
+                viewHolder.imageView.setMaxHeight(context.getResources().getDimensionPixelSize(
+                        R.dimen.note_preview_image_height) * 2);
+                viewHolder.textViewPreviewText.setVisibility(View.GONE);
+            }
+
+            viewHolder.imageView.setVisibility(View.VISIBLE);
             Picasso.with(context).load(new File(note.getImagePath()))
                     // actually we needed here to put in a proportional y value calculated from the image ratio.
-                    .resize(displaySize.x / 2, displaySize.y / 2)
+                    .fit().centerCrop()
                     .into(viewHolder.imageView);
+        } else {
+
+            viewHolder.imageView.setVisibility(View.GONE);
+            viewHolder.textViewPreviewText.setVisibility(View.VISIBLE);
         }
 
         viewHolder.textViewPreviewText.setBackgroundColor(note.getColor());
@@ -107,7 +106,8 @@ public class NoteListAdapter extends BaseAdapter {
     private ViewHolder createViewHolder(View convertView) {
         ViewHolder viewHolder = new ViewHolder();
         viewHolder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
-        viewHolder.textViewPreviewText = (TextView) convertView.findViewById(R.id.textViewPreviewText);
+        viewHolder.textViewPreviewText =
+                (TextView) convertView.findViewById(R.id.textViewPreviewText);
         return viewHolder;
     }
 

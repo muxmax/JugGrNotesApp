@@ -1,19 +1,15 @@
 package com.github.muxmax.juggrnotesapp.view;
 
 import android.app.DialogFragment;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -212,15 +208,8 @@ public class NoteDetailActivity extends ActionBarActivity {
     }
 
     private void loadImageIntoView(String imagePath) {
-
-        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point p = new Point(0, 0);
-        display.getSize(p);
-
         Picasso.with(this).load(new File(imagePath))
-                // actually we needed here to put in a proportional y value calculated from the image ratio.
-                .resize(p.x, p.y)
+                .fit().centerCrop()
                 .into(imageView, new Callback() {
                     @Override
                     public void onSuccess() {

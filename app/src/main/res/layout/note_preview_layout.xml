@@ -7,9 +7,8 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:adjustViewBounds="true"/>
+        android:layout_height="@dimen/note_preview_image_height"
+        android:visibility="gone"/>
 
     <TextView
         android:layout_width="match_parent"
