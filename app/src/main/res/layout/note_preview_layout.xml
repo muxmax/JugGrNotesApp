@@ -8,6 +8,7 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/note_preview_image_height"
+        android:scaleType="centerCrop"
         android:visibility="gone"/>
 
     <TextView

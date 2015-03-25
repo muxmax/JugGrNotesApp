@@ -17,6 +17,8 @@ import java.util.List;
 
 public class NotesOverviewActivity extends ActionBarActivity {
 
+    private NoteListAdapter listAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +37,7 @@ public class NotesOverviewActivity extends ActionBarActivity {
 
         final List<Note> notes =
                 NoteStore.getInstance().findAll();
-        final NoteListAdapter listAdapter =
+        listAdapter =
                 new NoteListAdapter(this, notes);
         StaggeredGridView listView = (StaggeredGridView) findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -47,4 +49,9 @@ public class NotesOverviewActivity extends ActionBarActivity {
         listView.setAdapter(listAdapter);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listAdapter.notifyDataSetChanged();
+    }
 }

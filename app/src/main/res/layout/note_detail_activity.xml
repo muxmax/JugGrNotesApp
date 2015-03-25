@@ -33,6 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/note_image_height"
             android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:scaleType="centerCrop"
             />
 
         <ImageButton
