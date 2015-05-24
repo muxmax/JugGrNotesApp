@@ -12,11 +12,14 @@ import android.view.Window;
 import com.github.muxmax.juggrnotesapp.R;
 import com.github.muxmax.juggrnotesapp.presentation.util.BundleArguments;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 
 /**
  * This UI component allows to choose colors.
  */
-public class ColorChooserDialogFragment extends DialogFragment implements View.OnClickListener {
+public class ColorChooserDialogFragment extends DialogFragment {
 
 
     private Dialog dialog;
@@ -46,20 +49,17 @@ public class ColorChooserDialogFragment extends DialogFragment implements View.O
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View root = inflater.inflate(R.layout.color_chooser_fragment, container, false);
-
-        root.findViewById(R.id.colorViewBlue).setOnClickListener(this);
-        root.findViewById(R.id.colorViewGreen).setOnClickListener(this);
-        root.findViewById(R.id.colorViewOrange).setOnClickListener(this);
-        root.findViewById(R.id.colorViewRed).setOnClickListener(this);
-        root.findViewById(R.id.colorViewWhite).setOnClickListener(this);
-
+        ButterKnife.inject(this, root);
         return root;
     }
 
-    @Override
-    public void onClick(View view) {
+    @OnClick({R.id.colorViewBlue,
+            R.id.colorViewGreen,
+            R.id.colorViewOrange,
+            R.id.colorViewRed,
+            R.id.colorViewWhite})
+    public void onClickColorView(View view) {
         ColorDrawable drawable = (ColorDrawable) view.getBackground();
         int color = drawable.getColor();
         callback.onChosenColor(color);
@@ -75,7 +75,7 @@ public class ColorChooserDialogFragment extends DialogFragment implements View.O
          *
          * @param color The chosen color.
          */
-        public void onChosenColor(int color);
+        void onChosenColor(int color);
     }
 
 }

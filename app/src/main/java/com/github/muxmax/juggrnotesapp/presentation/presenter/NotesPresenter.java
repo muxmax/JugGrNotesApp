@@ -2,16 +2,24 @@ package com.github.muxmax.juggrnotesapp.presentation.presenter;
 
 import android.os.Bundle;
 
+import com.github.muxmax.juggrnotesapp.domain.interactors.GetAllNotes;
 import com.github.muxmax.juggrnotesapp.domain.model.Note;
+import com.github.muxmax.juggrnotesapp.presentation.util.BundleArguments;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * This presenter communicates with a View that is able to show {@link Note}s.
  */
-public class NotesPresenter {
+public class NotesPresenter implements GetAllNotes.Callback {
+
+    @Inject GetAllNotes getAllNotes;
 
     private NotesView view;
+
+    private int position;
 
     /**
      * Should be called when a {@link NotesView} is created.
@@ -20,7 +28,15 @@ public class NotesPresenter {
      * @param savedInstanceState A bundle that may contain a saved instance state.
      */
     public void onCreate(NotesView view, Bundle savedInstanceState) {
+        this.view = view;
+        tryLoadingViewState(savedInstanceState);
+    }
 
+    private void tryLoadingViewState(Bundle savedInstanceState) {
+        position = savedInstanceState == null ?
+                0 :
+                savedInstanceState.getInt(BundleArguments.SCROLL_POSITION, 0);
+        getAllNotes.execute(this);
     }
 
     /**
@@ -53,6 +69,17 @@ public class NotesPresenter {
      * @param position a position of the scrolled notes list representation.
      */
     public void onScrolledNotes(int position) {
+
+    }
+
+    @Override
+    public void onSuccess(List<Note> notes) {
+        view.displayNotes(notes);
+        view.setDisplayPosition(position);
+    }
+
+    @Override
+    public void onError() {
 
     }
 

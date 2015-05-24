@@ -4,7 +4,6 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -18,6 +17,7 @@ import android.widget.Toast;
 import com.github.muxmax.juggrnotesapp.R;
 import com.github.muxmax.juggrnotesapp.domain.model.Note;
 import com.github.muxmax.juggrnotesapp.domain.model.NoteStore;
+import com.github.muxmax.juggrnotesapp.presentation.di.BaseActionBarActivity;
 import com.github.muxmax.juggrnotesapp.presentation.util.BundleArguments;
 import com.github.muxmax.juggrnotesapp.presentation.util.NavigationUtils;
 import com.squareup.picasso.Callback;
@@ -25,21 +25,23 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 /**
  * An activity that shows detail information on a given note.
  */
-public class NoteDetailActivity extends ActionBarActivity {
-
-    // model state
-    private Note note;
+public class NoteDetailActivity extends BaseActionBarActivity {
 
     // view
-    private View rootView;
-    private ImageView imageView;
-    private ImageButton buttonDeletePhoto;
-    private EditText editTextTitle;
-    private EditText editTextContent;
-
+    @InjectView(R.id.rootView) View rootView;
+    @InjectView(R.id.toolbar) Toolbar toolbar;
+    @InjectView(R.id.imageView) ImageView imageView;
+    @InjectView(R.id.buttonDeletePhoto) ImageButton buttonDeletePhoto;
+    @InjectView(R.id.editTextTitle) EditText editTextTitle;
+    @InjectView(R.id.editTextContent) EditText editTextContent;
+    // model state
+    private Note note;
     // view state
     private Uri capturedImageUri;
 
@@ -125,16 +127,14 @@ public class NoteDetailActivity extends ActionBarActivity {
      */
     private void initializeView() {
         setContentView(R.layout.note_detail_activity);
+        ButterKnife.inject(this);
 
-        rootView = findViewById(R.id.rootView);
         rootView.setBackgroundColor(note.getColor());
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        buttonDeletePhoto = (ImageButton) findViewById(R.id.buttonDeletePhoto);
         buttonDeletePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,12 +144,9 @@ public class NoteDetailActivity extends ActionBarActivity {
             }
         });
 
-        editTextTitle = (EditText) findViewById(R.id.editTextTitle);
         editTextTitle.setText(note.getTitle());
-        editTextContent = (EditText) findViewById(R.id.editTextContent);
         editTextContent.setText(note.getContent());
 
-        imageView = (ImageView) findViewById(R.id.imageView);
         if (note.getImagePath() != null) {
             loadImageIntoView(note.getImagePath());
         }
