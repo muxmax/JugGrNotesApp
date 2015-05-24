@@ -1,4 +1,4 @@
-package com.github.muxmax.juggrnotesapp.model;
+package com.github.muxmax.juggrnotesapp.domain.model;
 
 import android.graphics.Color;
 
@@ -40,39 +40,21 @@ public class Note {
     }
 
     /**
-     * Getter for property 'content'.
-     *
-     * @return Value for property 'content'.
-     */
-    public String getContent() {
-        return content;
-    }
-
-    /**
-     * Getter for property 'imagePath'.
-     *
-     * @return Value for property 'imagePath'.
-     */
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    /**
-     * Getter for property 'color'.
-     *
-     * @return Value for property 'color'.
-     */
-    public Integer getColor() {
-        return color;
-    }
-
-    /**
      * Setter for property 'title'.
      *
      * @param title Value to set for property 'title'.
      */
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    /**
+     * Getter for property 'content'.
+     *
+     * @return Value for property 'content'.
+     */
+    public String getContent() {
+        return content;
     }
 
     /**
@@ -85,12 +67,30 @@ public class Note {
     }
 
     /**
+     * Getter for property 'imagePath'.
+     *
+     * @return Value for property 'imagePath'.
+     */
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    /**
      * Setter for property 'imagePath'.
      *
      * @param imagePath Value to set for property 'imagePath'.
      */
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    /**
+     * Getter for property 'color'.
+     *
+     * @return Value for property 'color'.
+     */
+    public Integer getColor() {
+        return color;
     }
 
     /**

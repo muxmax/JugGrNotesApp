@@ -1,4 +1,4 @@
-package com.github.muxmax.juggrnotesapp.util;
+package com.github.muxmax.juggrnotesapp.presentation.util;
 
 /**
  * A utility class that is used to provide IDs for state that are exchanged on navigating between

@@ -1,18 +1,19 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:id="@+id/rootView"
-                tools:context="com.github.muxmax.juggrnotesapp.view.NoteDetailActivity">
+<RelativeLayout
+    android:id="@+id/rootView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.github.muxmax.juggrnotesapp.presentation.view.NoteDetailActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:minHeight="?attr/actionBarSize"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:background="@android:color/transparent"
-        android:layout_alignParentTop="true">
+        android:minHeight="?attr/actionBarSize">
 
         <EditText
             android:id="@+id/editTextTitle"
@@ -23,10 +24,10 @@
     </android.support.v7.widget.Toolbar>
 
     <FrameLayout
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom">
 
         <ImageView
             android:id="@+id/imageView"
@@ -37,28 +38,28 @@
             />
 
         <ImageButton
-            android:visibility="gone"
             android:id="@+id/buttonDeletePhoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_delete"
-            android:background="@android:color/transparent"
-            android:layout_margin="@dimen/activity_vertical_margin"
             android:layout_gravity="bottom|right"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_action_delete"
+            android:visibility="gone"
             />
     </FrameLayout>
 
     <EditText
-        android:layout_below="@id/toolbar"
+        android:id="@+id/editTextContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_below="@id/toolbar"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:inputType="textMultiLine"
-        android:id="@+id/editTextContent"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:hint="@string/note_content"
+        android:inputType="textMultiLine"
         />
 
 </RelativeLayout>

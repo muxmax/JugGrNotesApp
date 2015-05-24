@@ -1,4 +1,4 @@
-package com.github.muxmax.juggrnotesapp.view;
+package com.github.muxmax.juggrnotesapp.presentation.view;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 
 import com.github.muxmax.juggrnotesapp.R;
-import com.github.muxmax.juggrnotesapp.util.BundleArguments;
+import com.github.muxmax.juggrnotesapp.presentation.util.BundleArguments;
 
 
 /**

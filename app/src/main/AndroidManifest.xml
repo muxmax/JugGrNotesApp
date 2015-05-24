@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.muxmax.juggrnotesapp" >
+<manifest
+    package="com.github.muxmax.juggrnotesapp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -10,23 +11,23 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
-            android:name=".view.NotesOverviewActivity"
-            android:label="@string/app_name" >
+            android:name=".presentation.view.NotesOverviewActivity"
+            android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.NoteDetailActivity"
+            android:name=".presentation.view.NoteDetailActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".view.NotesOverviewActivity" >
+            android:parentActivityName=".presentation.view.NotesOverviewActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.NotesOverviewActivity" />
+                android:value=".presentation.view.NotesOverviewActivity"/>
         </activity>
     </application>
 

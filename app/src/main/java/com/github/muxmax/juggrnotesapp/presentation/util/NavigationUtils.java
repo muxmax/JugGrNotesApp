@@ -1,4 +1,4 @@
-package com.github.muxmax.juggrnotesapp.util;
+package com.github.muxmax.juggrnotesapp.presentation.util;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -13,7 +13,7 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import com.github.muxmax.juggrnotesapp.view.NoteDetailActivity;
+import com.github.muxmax.juggrnotesapp.presentation.view.NoteDetailActivity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,10 +25,10 @@ import java.util.List;
  */
 public class NavigationUtils {
 
+    public static final int RESULT_LOAD_IMAGE = 1;
     private static final String APP_DIR = Environment
             .getExternalStorageDirectory().getAbsolutePath()
             .concat("/Android/data/com.github.muxmax.juggrnotesapp/images/");
-    public static final int RESULT_LOAD_IMAGE = 1;
 
     /**
      * Navigates to an appropriate activity that provides image resources. So a chooser intent will
@@ -120,9 +120,10 @@ public class NavigationUtils {
     }
 
     /**
-     * Navigate to the {@link com.github.muxmax.juggrnotesapp.view.NoteDetailActivity}.
+     * Navigate to the {@link com.github.muxmax.juggrnotesapp.presentation.view.NoteDetailActivity}.
+     *
      * @param context The context the new activity is started from.
-     * @param noteId The id of the note to be viewed.
+     * @param noteId  The id of the note to be viewed.
      */
     public static void goToNoteDetailActivity(Context context, Long noteId) {
         Intent intent = new Intent(context, NoteDetailActivity.class);

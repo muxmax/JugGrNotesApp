@@ -1,4 +1,4 @@
-package com.github.muxmax.juggrnotesapp.view;
+package com.github.muxmax.juggrnotesapp.presentation.view;
 
 import android.app.DialogFragment;
 import android.content.Intent;
@@ -16,10 +16,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.github.muxmax.juggrnotesapp.R;
-import com.github.muxmax.juggrnotesapp.model.Note;
-import com.github.muxmax.juggrnotesapp.model.NoteStore;
-import com.github.muxmax.juggrnotesapp.util.BundleArguments;
-import com.github.muxmax.juggrnotesapp.util.NavigationUtils;
+import com.github.muxmax.juggrnotesapp.domain.model.Note;
+import com.github.muxmax.juggrnotesapp.domain.model.NoteStore;
+import com.github.muxmax.juggrnotesapp.presentation.util.BundleArguments;
+import com.github.muxmax.juggrnotesapp.presentation.util.NavigationUtils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 

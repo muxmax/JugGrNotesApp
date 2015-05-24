@@ -1,4 +1,4 @@
-package com.github.muxmax.juggrnotesapp.view;
+package com.github.muxmax.juggrnotesapp.presentation.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,14 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.muxmax.juggrnotesapp.R;
-import com.github.muxmax.juggrnotesapp.model.Note;
+import com.github.muxmax.juggrnotesapp.domain.model.Note;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.List;
 
 /**
- * An adapter that provides views for a list of {@link com.github.muxmax.juggrnotesapp.model.Note}s.
+ * An adapter that provides views for a list of {@link com.github.muxmax.juggrnotesapp.domain.model.Note}s.
  */
 public class NoteListAdapter extends BaseAdapter {
 

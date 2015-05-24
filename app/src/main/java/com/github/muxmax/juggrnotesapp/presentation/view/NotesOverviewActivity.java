@@ -1,4 +1,4 @@
-package com.github.muxmax.juggrnotesapp.view;
+package com.github.muxmax.juggrnotesapp.presentation.view;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -7,9 +7,9 @@ import android.widget.AdapterView;
 
 import com.etsy.android.grid.StaggeredGridView;
 import com.github.muxmax.juggrnotesapp.R;
-import com.github.muxmax.juggrnotesapp.model.Note;
-import com.github.muxmax.juggrnotesapp.model.NoteStore;
-import com.github.muxmax.juggrnotesapp.util.NavigationUtils;
+import com.github.muxmax.juggrnotesapp.domain.model.Note;
+import com.github.muxmax.juggrnotesapp.domain.model.NoteStore;
+import com.github.muxmax.juggrnotesapp.presentation.util.NavigationUtils;
 import com.shamanland.fab.FloatingActionButton;
 
 import java.util.List;

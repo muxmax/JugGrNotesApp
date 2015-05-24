@@ -1,4 +1,4 @@
-package com.github.muxmax.juggrnotesapp.model;
+package com.github.muxmax.juggrnotesapp.domain.model;
 
 import android.graphics.Color;
 
