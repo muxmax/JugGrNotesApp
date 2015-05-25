@@ -21,10 +21,18 @@ import java.util.List;
 public class NoteListAdapter extends BaseAdapter {
 
     private final Context context;
-    private final List<Note> notes;
+    private List<Note> notes;
 
     public NoteListAdapter(Context context, List<Note> notes) {
         this.context = context;
+        this.notes = notes;
+    }
+
+    public List<Note> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(List<Note> notes) {
         this.notes = notes;
     }
 

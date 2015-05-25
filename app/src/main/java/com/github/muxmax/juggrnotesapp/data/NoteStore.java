@@ -1,4 +1,7 @@
-package com.github.muxmax.juggrnotesapp.domain.model;
+package com.github.muxmax.juggrnotesapp.data;
+
+import com.github.muxmax.juggrnotesapp.domain.model.Note;
+import com.github.muxmax.juggrnotesapp.domain.model.SampleNotes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,44 +9,33 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This interface describes a model layer component that manages providing {@link
- * com.github.muxmax.juggrnotesapp.domain.model.Note} instances for the
- * application.
+ * This interface describes a model layer component that manages providing {@link Note} instances
+ * for the application.
  */
 public class NoteStore {
-
-    private static NoteStore INSTANCE;
 
     private Map<Long, Note> persistedNotesMap = new HashMap<>();
     private Map<Long, Note> mergedNotesMap = new HashMap<>();
 
-    private NoteStore() {
-
+    public NoteStore() {
         for (Note note : SampleNotes.generate(20)) {
             persistedNotesMap.put(note.getId(), note);
         }
     }
 
-    public static NoteStore getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new NoteStore();
-        }
-        return INSTANCE;
-    }
-
     /**
      * Save in a transient memory, that is not persistent.
      *
-     * @param note A {@link com.github.muxmax.juggrnotesapp.domain.model.Note}.
+     * @param note A {@link Note}.
      */
     public void merge(Note note) {
         persistedNotesMap.put(note.getId(), note);
     }
 
     /**
-     * Save a {@link com.github.muxmax.juggrnotesapp.domain.model.Note} if it is not empty.
+     * Save a {@link Note} if it is not empty.
      *
-     * @param note A {@link com.github.muxmax.juggrnotesapp.domain.model.Note}.
+     * @param note A {@link Note}.
      * @return true, if the note was not empty and therefore could be persisted. false, otherwise.
      */
     public boolean persist(Note note) {
@@ -62,12 +54,11 @@ public class NoteStore {
     }
 
     /**
-     * Provide a {@link com.github.muxmax.juggrnotesapp.domain.model.Note} that already exists with the
-     * given id or provide a new one.
+     * Provide a {@link Note} that already exists with the given id or provide a new one.
      *
      * @param noteId An id that might be null, 0, or any UUID.
-     * @return A {@link com.github.muxmax.juggrnotesapp.domain.model.Note} that may exist already or a new
-     * {@link com.github.muxmax.juggrnotesapp.domain.model.Note}.
+     * @return A {@link Note} that may exist already or
+     * a new {@link Note}.
      */
     public Note provide(Long noteId) {
         if (noteId == null || noteId == 0) {
@@ -87,7 +78,7 @@ public class NoteStore {
     }
 
     /**
-     * @return A list of all persisted {@link com.github.muxmax.juggrnotesapp.domain.model.Note}s.
+     * @return A list of all persisted {@link Note}s.
      */
     public List<Note> findAll() {
         return new ArrayList<>(persistedNotesMap.values());

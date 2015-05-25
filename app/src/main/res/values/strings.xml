@@ -10,4 +10,5 @@
     <string name="cancel">Abbrechen</string>
     <string name="saved_note">Notiz gespeichert.</string>
     <string name="did_not_save_note_as_empty">Leere Notiz verworfen.</string>
+    <string name="notes_could_not_be_loaded">Die Notitzen konnten nicht geladen werden. Starten sie die App noch mal neu  und probieren sie es noch einmal.</string>
 </resources>

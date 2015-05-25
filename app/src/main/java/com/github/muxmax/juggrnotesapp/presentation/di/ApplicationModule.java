@@ -1,8 +1,12 @@
 package com.github.muxmax.juggrnotesapp.presentation.di;
 
-import com.github.muxmax.juggrnotesapp.domain.model.NoteStore;
+import com.github.muxmax.juggrnotesapp.data.NoteStore;
+import com.github.muxmax.juggrnotesapp.domain.interactors.GetAllNotes;
+import com.github.muxmax.juggrnotesapp.domain.interactors.GetAllNotesInteractor;
 import com.github.muxmax.juggrnotesapp.presentation.view.NoteDetailActivity;
 import com.github.muxmax.juggrnotesapp.presentation.view.NotesOverviewActivity;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,7 +17,8 @@ import dagger.Provides;
 @Module(
         injects = {Application.class,
                 NotesOverviewActivity.class,
-                NoteDetailActivity.class
+                NoteDetailActivity.class,
+                GetAllNotesInteractor.class
         }
 )
 public class ApplicationModule {
@@ -25,8 +30,14 @@ public class ApplicationModule {
     }
 
     @Provides
+    public GetAllNotes provideGetAllNotes() {
+        return application.getObjectGraph().get(GetAllNotesInteractor.class);
+    }
+
+    @Singleton
+    @Provides
     public NoteStore provideNoteStore() {
-        return NoteStore.getInstance();
+        return new NoteStore();
     }
 
 }

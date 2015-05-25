@@ -15,8 +15,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.github.muxmax.juggrnotesapp.R;
+import com.github.muxmax.juggrnotesapp.data.NoteStore;
 import com.github.muxmax.juggrnotesapp.domain.model.Note;
-import com.github.muxmax.juggrnotesapp.domain.model.NoteStore;
 import com.github.muxmax.juggrnotesapp.presentation.di.BaseActionBarActivity;
 import com.github.muxmax.juggrnotesapp.presentation.util.BundleArguments;
 import com.github.muxmax.juggrnotesapp.presentation.util.NavigationUtils;
@@ -24,6 +24,8 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -41,6 +43,7 @@ public class NoteDetailActivity extends BaseActionBarActivity {
     @InjectView(R.id.editTextTitle) EditText editTextTitle;
     @InjectView(R.id.editTextContent) EditText editTextContent;
     // model state
+    @Inject NoteStore noteStore;
     private Note note;
     // view state
     private Uri capturedImageUri;
@@ -106,7 +109,7 @@ public class NoteDetailActivity extends BaseActionBarActivity {
         note.setTitle(editTextTitle.getText().toString());
         note.setContent(editTextContent.getText().toString());
 
-        NoteStore.getInstance().merge(note);
+        noteStore.merge(note);
 
         outState.putLong(BundleArguments.NOTE_ID, note.getId());
     }
@@ -115,7 +118,7 @@ public class NoteDetailActivity extends BaseActionBarActivity {
         note.setTitle(editTextTitle.getText().toString());
         note.setContent(editTextContent.getText().toString());
 
-        if (NoteStore.getInstance().persist(note)) {
+        if (noteStore.persist(note)) {
             Toast.makeText(this, R.string.saved_note, Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, R.string.did_not_save_note_as_empty, Toast.LENGTH_LONG).show();
@@ -166,7 +169,7 @@ public class NoteDetailActivity extends BaseActionBarActivity {
         } else {
             noteId = savedInstancesState.getLong(BundleArguments.NOTE_ID);
         }
-        note = NoteStore.getInstance().provide(noteId);
+        note = noteStore.provide(noteId);
     }
 
     /**
