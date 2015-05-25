@@ -1,17 +1,15 @@
 package com.github.muxmax.juggrnotesapp.presentation.presenter;
 
-import android.os.Bundle;
-
 import com.github.muxmax.juggrnotesapp.domain.interactors.GetAllNotes;
 import com.github.muxmax.juggrnotesapp.domain.model.Note;
-import com.github.muxmax.juggrnotesapp.presentation.util.BundleArguments;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 /**
- * This presenter communicates with a View that is able to show {@link Note}s.
+ * This presenter communicates with a View that is able to show {@link Note}s. It represents all
+ * logic necessary to display and manage {@link Note}s.
  */
 public class NotesPresenter implements GetAllNotes.Callback {
 
@@ -19,63 +17,41 @@ public class NotesPresenter implements GetAllNotes.Callback {
 
     private NotesView view;
 
-    private int position;
-
     /**
      * Should be called when a {@link NotesView} is created.
      *
      * @param view               The view that is created.
-     * @param savedInstanceState A bundle that may contain a saved instance state.
      */
-    public void onCreate(NotesView view, Bundle savedInstanceState) {
+    public void onCreate(NotesView view) {
         this.view = view;
-        tryLoadingViewState(savedInstanceState);
-    }
-
-    private void tryLoadingViewState(Bundle savedInstanceState) {
-        position = savedInstanceState == null ?
-                0 :
-                savedInstanceState.getInt(BundleArguments.SCROLL_POSITION, 0);
-        getAllNotes.execute(this);
     }
 
     /**
-     * Should be called when a {@link NotesView} has to save its state as it will be paused.
-     *
-     * @param outState The bundle the state can be saved in.
+     * Should be called when the execution of the {@link NotesView} is continued.
      */
-    public void onSaveInstanceState(Bundle outState) {
-
+    public void onResume() {
+        getAllNotes.execute(this);
     }
 
     /**
      * Should be called when an action took place to add a new {@link Note}.
      */
-    public void onAddNote() {
-
+    public void onPressedAddNoteButton() {
+        view.openNoteDetails(0l);
     }
 
     /**
      * Should be called when a note was long pressed on.
-     */
-    public void onPressedNote() {
-
-    }
-
-    /**
-     * Should be called when the notes list representation has been scrolled and a new position has
-     * been reached.
      *
-     * @param position a position of the scrolled notes list representation.
+     * @param note The {@link Note} that was pressed.
      */
-    public void onScrolledNotes(int position) {
-
+    public void onPressedNote(Note note) {
+        view.openNoteDetails(note.getId());
     }
 
     @Override
     public void onSuccess(List<Note> notes) {
         view.displayNotes(notes);
-        view.setDisplayPosition(position);
     }
 
     @Override
@@ -105,17 +81,10 @@ public class NotesPresenter implements GetAllNotes.Callback {
         void displayLoadingError();
 
         /**
-         * Gets the display position of the notes list representation in the view.
+         * Causes the view to open the detail view for the note.
          *
-         * @return The position.
+         * @param noteId An id of a {@link Note} to be displayed in detail.
          */
-        int getDisplayPosition();
-
-        /**
-         * Sets the display position of the notes list representation in the view.
-         *
-         * @param position A position to set in the view.
-         */
-        void setDisplayPosition(int position);
+        void openNoteDetails(long noteId);
     }
 }
