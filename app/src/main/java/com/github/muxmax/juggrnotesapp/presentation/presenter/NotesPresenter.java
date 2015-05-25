@@ -80,7 +80,7 @@ public class NotesPresenter implements GetAllNotes.Callback {
 
     @Override
     public void onError() {
-
+        view.displayLoadingError();
     }
 
     /**
@@ -90,7 +90,8 @@ public class NotesPresenter implements GetAllNotes.Callback {
     public interface NotesView {
 
         /**
-         * Display the given list of {@link Note}s. If a list is already displayed it should update
+         * Displays the given list of {@link Note}s. If a list is already displayed it should
+         * update
          * its content to the given one.
          *
          * @param notes A list of {@link Note}s to be displayed.
@@ -98,18 +99,23 @@ public class NotesPresenter implements GetAllNotes.Callback {
         void displayNotes(List<Note> notes);
 
         /**
-         * Get the display position of the notes list representation in the view.
+         * Displays an error message to the user as something went wrong during loading {@link
+         * Note}s
+         */
+        void displayLoadingError();
+
+        /**
+         * Gets the display position of the notes list representation in the view.
          *
          * @return The position.
          */
         int getDisplayPosition();
 
         /**
-         * Set the display position of the notes list representation in the view.
+         * Sets the display position of the notes list representation in the view.
          *
          * @param position A position to set in the view.
          */
         void setDisplayPosition(int position);
-
     }
 }

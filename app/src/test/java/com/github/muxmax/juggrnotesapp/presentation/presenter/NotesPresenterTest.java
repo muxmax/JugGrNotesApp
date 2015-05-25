@@ -57,6 +57,19 @@ public class NotesPresenterTest {
         verify(viewMock).setDisplayPosition(eq(0));
     }
 
+    @Test
+    public void errors_caused_by_loading_notes_are_displayed_in_the_view() {
+        // when
+        presenter.onCreate(viewMock, null);
+
+        // then
+        verify(getAllNotesMock).execute(eq(presenter));
+        // after short time the asynchronous execution of GetAllNotes finishes with an error.
+        presenter.onError();
+
+        verify(viewMock).displayLoadingError();
+    }
+
     /**
      * A dagger module specifying injection points for application tests.
      */
