@@ -10,7 +10,7 @@ import java.util.List;
 public interface GetAllNotes {
 
     /**
-     * Executes the use case and notify the callback on the result state.
+     * Executes the use case and notifies the callback on the result state.
      *
      * @param callback The callback to be notified.
      */
@@ -28,7 +28,7 @@ public interface GetAllNotes {
         void onSuccess(List<Note> notes);
 
         /**
-         * Something when wrong getting all {@link Note}s.
+         * Something went wrong getting all {@link Note}s.
          */
         void onError();
     }
